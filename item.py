@@ -21,7 +21,7 @@ class Item:
         assert price >= 0, f'Price {price} is not greater or equal to than zero'
         assert quantity >= 0, f'Quantity {quantity} is not greater or equal to than zero'
         self.__name = name  # privat attribute
-        self.price = price
+        self.__price = price
         self.quantity = quantity
         Item.all.append(self)
 
@@ -33,6 +33,10 @@ class Item:
         """
         return self.__name
 
+    @property
+    def price(self):
+        return self.__price
+
     @name.setter
     def name(self, value):
         """
@@ -42,8 +46,13 @@ class Item:
         """
         self.__name = value
 
+    @price.setter
+    def price(self, value: float):
+        assert value >= 0, f'Price {value} is not greater or equal to than zero'
+        self.__price = value
+
     def __repr__(self):
-        return f'{self.__class__.__name__}(name = {self.name}, price - {self.price}, quantity - {self.quantity})'
+        return f'{self.__class__.__name__}(name = {self.name}, price - {self.__price}, quantity - {self.quantity})'
 
     @staticmethod
     def is_integer(num):
@@ -55,10 +64,10 @@ class Item:
             return False
 
     def calculate_total_price(self):
-        return self.price * self.quantity
+        return self.__price * self.quantity
 
     def apply_discount(self):
-        self.price *= self.pay_rate
+        self.__price *= self.pay_rate
 
 
 def main():
