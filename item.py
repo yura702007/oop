@@ -20,10 +20,27 @@ class Item:
     def __init__(self, name: str, price: float, quantity=0):
         assert price >= 0, f'Price {price} is not greater or equal to than zero'
         assert quantity >= 0, f'Quantity {quantity} is not greater or equal to than zero'
-        self.name = name
+        self.__name = name  # privat attribute
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    @property
+    def name(self):
+        """
+        get privat attribute
+        :return: self.__name
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        """
+        set privat attribute
+        :param value: str
+        :return: None
+        """
+        self.__name = value
 
     def __repr__(self):
         return f'{self.__class__.__name__}(name = {self.name}, price - {self.price}, quantity - {self.quantity})'
